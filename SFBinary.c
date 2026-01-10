@@ -72,7 +72,7 @@ int main()
     result = BINARYSEARCH(arr, n, key);
     if(result != -1)  //if we write result ==1 then it will show position 1 only
     {
-        printf("ELEMENT found AT POSITION %d",result);
+        printf("NUMBER %d found AT %d POSITION ",key,result);
     }
     else
     {
