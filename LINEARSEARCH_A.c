@@ -16,7 +16,7 @@ int linearSearchArray(int a[], int n, int key)
     for(i = 0; i < n; i++)
     {
         if(a[i] == key)
-            return 1;   // found
+            return i+1;   // found
     }
     return -1;          // not found
 }
@@ -35,8 +35,8 @@ int main()
 
     result = linearSearchArray(a, n, key);
 
-    if(result == 1)
-        printf("Number FOUND in array\n");
+    if(result != -1)
+        printf("Number %d FOUND in % POSITION\n",key,result);
     else
         printf("Number NOT FOUND in array\n");
 
