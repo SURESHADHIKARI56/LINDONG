@@ -36,7 +36,7 @@ int main()
     result = linearSearchArray(a, n, key);
 
     if(result != -1)
-        printf("Number %d FOUND in % POSITION\n",key,result);
+        printf("Number %d FOUND in %d POSITION\n",key,result);
     else
         printf("Number NOT FOUND in array\n");
 
