@@ -64,7 +64,6 @@ int main()
     printf("How many elements: ");
     scanf("%d", &n);
     INPUTARRAY(arr, n);
-    PRINTARRAY(arr, n);
     BUBBLESORT(arr, n);
     PRINTARRAY(arr, n);
     printf("Enter element to search: ");
@@ -72,7 +71,7 @@ int main()
     result = BINARYSEARCH(arr, n, key);
     if(result != -1)  //if we write result ==1 then it will show position 1 only
     {
-        printf("ELEMENT found AT POSITION %d",result);
+        printf("NUMBER %d found AT %d POSITION ",key,result);
     }
     else
     {
