@@ -16,7 +16,7 @@ int linearSearchArray(int a[], int n, int key)
     for(i = 0; i < n; i++)
     {
         if(a[i] == key)
-            return i+1;   // found
+            return i+1;   // found i is index 0 i+1 correct position
     }
     return -1;          // not found
 }
