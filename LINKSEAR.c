@@ -43,6 +43,7 @@ int linearSearchList(int key)
         if(cur->data == key)
             return position;   // found
         cur = cur->next;
+        position++;
     }
     return -1;          // not found
 }
@@ -67,7 +68,7 @@ int main()
     result = linearSearchList(key);
 
     if(result != -1)
-        printf("%d Number FOUND in %d position in linked list\n",n,result);
+        printf("%d Number FOUND in %d position in linked list\n",key,result);
     else
         printf("Number NOT FOUND in linked list\n");
 
