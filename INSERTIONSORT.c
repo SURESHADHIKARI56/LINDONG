@@ -18,7 +18,7 @@ void PrintArray(int arr[], int n) {
 }
 void InsertionSort(int arr[], int n) {
     int key, j;
-    for (int i = 0; i < n; i++) {
+    for (int i = 1; i < n; i++) {
         key = arr[i];
         j = i - 1;
         // Move elements of arr[0..i-1], that are greater than key,
