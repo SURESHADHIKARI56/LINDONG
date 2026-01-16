@@ -1,7 +1,7 @@
 /* FIRST PROJECT 1
    LINKED LIST TO STORE STUDENT DATA
    NAME:SURESH
-   DATE: 18/12/2026
+   DATE: 194/12/2026
 */
 
 #include <stdio.h>
@@ -16,7 +16,7 @@ typedef struct StudType
     float mk1, mk2, mk3;
     int total;
     float avg;
-    char result[15]; // PASS / FAIL / DISTINCTION
+    char result[15]; 
 } STUDENT;
 
 /* Linked list node */
@@ -83,9 +83,7 @@ void enterstudentdata()
     if (stud.mk1 < 35 || stud.mk2 < 35 || stud.mk3 < 35)
     {
         strcpy(stud.result, "FAIL");
-    }
-    else if (stud.avg >= 80)
-    {
+    } else if (stud.avg >= 80)    {
         strcpy(stud.result, "DISTINCTION");
     }
     else
@@ -244,8 +242,6 @@ void classreport()
         cur = cur->next;
     }
 }
-
-/* Menu handler */
 void menu(int choice)
 {
     char sid[20];
@@ -284,7 +280,6 @@ void menu(int choice)
     }
 }
 
-/* Main */
 int main()
 {
     int choice;

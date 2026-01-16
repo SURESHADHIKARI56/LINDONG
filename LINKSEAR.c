@@ -36,12 +36,14 @@ void insertNode(int value)
 int linearSearchList(int key)
 {
     struct node *cur = Head;
+     int position=1;
 
     while(cur != NULL)
     {
         if(cur->data == key)
-            return 1;   // found
+            return position;   // found
         cur = cur->next;
+        position++;
     }
     return -1;          // not found
 }
@@ -65,8 +67,8 @@ int main()
 
     result = linearSearchList(key);
 
-    if(result == 1)
-        printf("Number FOUND in linked list\n");
+    if(result != -1)
+        printf("%d Number FOUND in %d position in linked list\n",key,result);
     else
         printf("Number NOT FOUND in linked list\n");
 
