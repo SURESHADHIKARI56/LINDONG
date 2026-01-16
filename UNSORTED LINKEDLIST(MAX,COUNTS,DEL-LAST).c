@@ -9,7 +9,7 @@ struct node {
 
 struct node *head = NULL;
 
-/* Insert multiple numbers at end */
+/* Insert unsorted numbers */
 void insert() {
     struct node *newnode, *temp;
     int val, n, i;
