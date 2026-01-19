@@ -101,9 +101,7 @@ void displayForward() {
 
     printf("Forward: ");
     while (temp != NULL) {
-        printf("%d", temp->data);
-        if (temp->next != NULL)
-            printf(" <-> ");
+        printf("%d<->", temp->data);
         temp = temp->next;
     }
     printf("\n");
@@ -123,9 +121,7 @@ void displayBackward() {
 
     printf("Backward: ");
     while (temp != NULL) {
-        printf("%d", temp->data);
-        if (temp->prev != NULL)
-            printf(" <-> ");
+        printf("%d<->",temp->data);
         temp = temp->prev;
     }
     printf("\n");
