@@ -39,41 +39,41 @@ void InsertNode(int x)
     else
         prev->right = Node;
 }
-void Inorder(TREENODE *Node)
+void Inorder(TREENODE *Root)
 {
-    if (Node != NULL)
+    if (Root)
     {
-        Inorder(Node->left);
-        printf("%d ", Node->data);
-        Inorder(Node->right);
+        Inorder(Root->left);
+        printf("%d ", Root->data);
+        Inorder(Root->right);
     }
 }
-void Preorder(TREENODE *Node)
+void Preorder(TREENODE *Root)
 {
-    if (Node != NULL)
+    if (Root)
     {
-        printf("%d ", Node->data);
-        Preorder(Node->left);
-        Preorder(Node->right);
+        printf("%d ", Root->data);
+        Preorder(Root->left);
+        Preorder(Root->right);
     }
 }
-void Postorder(TREENODE *Node)
+void Postorder(TREENODE *Root)
 {
-    if (Node != NULL)
+    if (Root)
     {
-        Postorder(Node->left);
-        Postorder(Node->right);
-        printf("%d ", Node->data);
+        Postorder(Root->left);
+        Postorder(Root->right);
+        printf("%d ", Root->data);
     }
 }
-void leafnode(TREENODE *Node)
+void leafnode(TREENODE *Root)
 {
-    if (Node != NULL)
+    if (Root)
     {
-        if (Node->left == NULL && Node->right == NULL)
-            printf("%d ", Node->data);
-        leafnode(Node->left);
-        leafnode(Node->right);
+        if (Root->left == NULL && Root->right == NULL)
+            printf("%d ", Root->data);
+        leafnode(Root->left);
+        leafnode(Root->right);
     }
 }
 int searchdata(int x, int *pos)
