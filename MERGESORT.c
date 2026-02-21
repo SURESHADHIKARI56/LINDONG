@@ -5,116 +5,91 @@ FILENAME:QUICKSORT.c
 */
 
 #include <stdio.h>
-#include <stdlib.h>
 
-struct Node {
-    int data;
-    struct Node* next;
-};
+void InputArray(int A[], int n);
+void DisplayArray(int A[], int n);
+void MergeSort(int A[], int low, int high);
+void Merge(int A[], int low, int mid, int high);
 
-// Create new node
-struct Node* newNode(int data) {
-    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
-    temp->data = data;
-    temp->next = NULL;
-    return temp;
+int main() {
+    int n, A[100];
+
+    printf("--- Merge Sort Program ---\n");
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    InputArray(A, n);
+
+    printf("\nOriginal Array: ");
+    DisplayArray(A, n);
+
+    MergeSort(A, 0, n - 1);
+
+    printf("Sorted Array:   ");
+    DisplayArray(A, n);
+
+    return 0;
 }
 
-// Insert at end
-void insertEnd(struct Node** head, int data) {
-    struct Node* temp = newNode(data);
-    if (*head == NULL) {
-        *head = temp;
-        return;
+void InputArray(int A[], int n) {
+    int i;
+    printf("Enter %d integers:\n", n);
+    for(i = 0; i < n; i++) {
+        scanf("%d", &A[i]);
     }
-    struct Node* cur = *head;
-    while (cur->next != NULL)
-        cur = cur->next;
-    cur->next = temp;
 }
 
-// Print list
-void printList(struct Node* head) {
-    while (head != NULL) {
-        printf("%d ", head->data);
-        head = head->next;
+void DisplayArray(int A[], int n) {
+    int i;
+    for(i = 0; i < n; i++) {
+        printf("%d ", A[i]);
     }
     printf("\n");
 }
 
-// Split list into 2 halves
-void splitList(struct Node* source, struct Node** front, struct Node** back) {
-    struct Node* slow = source;
-    struct Node* fast = source->next;
+void MergeSort(int A[], int low, int high) {
+    int mid;
+    
+    if(low < high) {
+        mid = (low + high) / 2;
 
-    while (fast != NULL) {
-        fast = fast->next;
-        if (fast != NULL) {
-            slow = slow->next;
-            fast = fast->next;
+        MergeSort(A, low, mid);
+        MergeSort(A, mid + 1, high);
+        
+        Merge(A, low, mid, high);
+    }
+}
+
+void Merge(int A[], int low, int mid, int high) {
+    int i = low;
+    int j = mid + 1;
+    int k = low;
+    int Temp[100];
+
+    while(i <= mid && j <= high) {
+        if(A[i] <= A[j]) {
+            Temp[k] = A[i];
+            i++;
+        } else {
+            Temp[k] = A[j];
+            j++;
         }
+        k++;
     }
 
-    *front = source;
-    *back = slow->next;
-    slow->next = NULL;
-}
-
-// Merge two sorted lists
-struct Node* sortedMerge(struct Node* a, struct Node* b) {
-    if (a == NULL) return b;
-    if (b == NULL) return a;
-
-    struct Node* result = NULL;
-
-    if (a->data <= b->data) {
-        result = a;
-        result->next = sortedMerge(a->next, b);
-    } else {
-        result = b;
-        result->next = sortedMerge(a, b->next);
-    }
-    return result;
-}
-
-// Merge sort
-void mergeSort(struct Node** headRef) {
-    struct Node* head = *headRef;
-    if (head == NULL || head->next == NULL)
-        return;
-
-    struct Node* a;
-    struct Node* b;
-
-    splitList(head, &a, &b);
-
-    mergeSort(&a);
-    mergeSort(&b);
-
-    *headRef = sortedMerge(a, b);
-}
-
-// Main
-int main() {
-    struct Node* head = NULL;
-    int n, x;
-
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
-
-    printf("Enter elements: ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &x);
-        insertEnd(&head, x);
+    while(i <= mid) {
+        Temp[k] = A[i];
+        i++;
+        k++;
     }
 
-    printf("Original List: ");
-    printList(head);
+    while(j <= high) {
+        Temp[k] = A[j];
+        j++;
+        k++;
+    }
 
-    mergeSort(&head);
-
-    printf("Sorted List (Merge Sort): ");
-    printList(head);
-
-    return 0;
+    for(i = low; i <= high; i++) {
+        A[i] = Temp[i];
+    }
 }
