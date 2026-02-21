@@ -5,139 +5,84 @@ FILENAME:QUICKSORT.c
 */
 
 #include <stdio.h>
-#include <stdlib.h>
 
-struct Node {
-    int data;
-    struct Node* next;
-};
+void InputArray(int A[], int n);
+void DisplayArray(int A[], int n);
+void QuickSort(int A[], int low, int high);
+int Partition(int A[], int low, int high);
+void Swap(int *a, int *b);
 
-// Create new node
-struct Node* newNode(int data) {
-    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
-    temp->data = data;
-    temp->next = NULL;
-    return temp;
+int main(){
+    int n, A[100];
+
+    printf("--- Quick Sort Program ---\n");
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    InputArray(A, n);
+
+    printf("\nOriginal Array: ");
+    DisplayArray(A, n);
+
+    QuickSort(A, 0, n - 1);
+
+    printf("Sorted Array:   ");
+    DisplayArray(A, n);
+
+    return 0;
 }
 
-// Insert at end
-void insertEnd(struct Node** head, int data) {
-    struct Node* temp = newNode(data);
-    if (*head == NULL) {
-        *head = temp;
-        return;
+void InputArray(int A[], int n){
+    int i;
+    printf("Enter %d integers:\n", n);
+    for(i = 0; i < n; i++) {
+        scanf("%d", &A[i]);
     }
-    struct Node* cur = *head;
-    while (cur->next != NULL)
-        cur = cur->next;
-    cur->next = temp;
 }
 
-// Print list
-void printList(struct Node* head) {
-    while (head != NULL) {
-        printf("%d ", head->data);
-        head = head->next;
+void DisplayArray(int A[], int n){
+    int i;
+    for(i = 0; i < n; i++) {
+        printf("%d ", A[i]);
     }
     printf("\n");
 }
 
-// Get last node
-struct Node* getTail(struct Node* cur) {
-    while (cur != NULL && cur->next != NULL)
-        cur = cur->next;
-    return cur;
+void Swap(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-// Partition function
-struct Node* partition(struct Node* head, struct Node* end,
-                       struct Node** newHead, struct Node** newEnd) {
-    struct Node* pivot = end;
-    struct Node* prev = NULL;
-    struct Node* cur = head;
-    struct Node* tail = pivot;
+void QuickSort(int A[], int low, int high){
+    int pivotIndex;
+    
+    if(low < high){
+        pivotIndex = Partition(A, low, high);
+        
+        QuickSort(A, low, pivotIndex - 1);
+        QuickSort(A, pivotIndex + 1, high);
+    }
+}
 
-    while (cur != pivot) {
-        if (cur->data < pivot->data) {
-            if (*newHead == NULL)
-                *newHead = cur;
-            prev = cur;
-            cur = cur->next;
-        } else {
-            if (prev)
-                prev->next = cur->next;
+int Partition(int A[], int low, int high){
+    int pivot = A[low];
+    int i = low;
+    int j = high;
 
-            struct Node* tmp = cur->next;
-            cur->next = NULL;
-            tail->next = cur;
-            tail = cur;
-            cur = tmp;
+    while(i < j) {
+        while(A[i] <= pivot && i <= high - 1) {
+            i++;
+        }
+
+        while(A[j] > pivot && j >= low + 1) {
+            j--;
+        }
+
+        if(i < j) {
+            Swap(&A[i], &A[j]);
         }
     }
-
-    if (*newHead == NULL)
-        *newHead = pivot;
-
-    *newEnd = tail;
-    return pivot;
-}
-
-// QuickSort recursive
-struct Node* quickSortRecur(struct Node* head, struct Node* end) {
-    if (!head || head == end)
-        return head;
-
-    struct Node* newHead = NULL;
-    struct Node* newEnd = NULL;
-
-    struct Node* pivot = partition(head, end, &newHead, &newEnd);
-
-    // Sort left part
-    if (newHead != pivot) {
-        struct Node* tmp = newHead;
-        while (tmp->next != pivot)
-            tmp = tmp->next;
-
-        tmp->next = NULL;
-
-        newHead = quickSortRecur(newHead, tmp);
-
-        tmp = getTail(newHead);
-        tmp->next = pivot;
-    }
-
-    // Sort right part
-    pivot->next = quickSortRecur(pivot->next, newEnd);
-
-    return newHead;
-}
-
-// Main QuickSort function
-void quickSort(struct Node** headRef) {
-    *headRef = quickSortRecur(*headRef, getTail(*headRef));
-}
-
-// Main
-int main() {
-    struct Node* head = NULL;
-    int n, x;
-
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
-
-    printf("Enter elements: ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &x);
-        insertEnd(&head, x);
-    }
-
-    printf("Original List: ");
-    printList(head);
-
-    quickSort(&head);
-
-    printf("Sorted List (Quick Sort): ");
-    printList(head);
-
-    return 0;
+    Swap(&A[low], &A[j]);
+    return j;
 }
