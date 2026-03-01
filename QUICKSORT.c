@@ -2,87 +2,66 @@
 NAME:XUNER
 DATE:16/02/2026
 FILENAME:QUICKSORT.c
-*/
+*/#include <stdio.h>
 
-#include <stdio.h>
-
-void InputArray(int A[], int n);
-void DisplayArray(int A[], int n);
-void QuickSort(int A[], int low, int high);
-int Partition(int A[], int low, int high);
-void Swap(int *a, int *b);
-
-int main(){
-    int n, A[100];
-
-    printf("--- Quick Sort Program ---\n");
-    printf("Enter the number of elements: ");
-    scanf("%d", &n);
-
-    InputArray(A, n);
-
-    printf("\nOriginal Array: ");
-    DisplayArray(A, n);
-
-    QuickSort(A, 0, n - 1);
-
-    printf("Sorted Array:   ");
-    DisplayArray(A, n);
-
-    return 0;
-}
-
-void InputArray(int A[], int n){
-    int i;
-    printf("Enter %d integers:\n", n);
-    for(i = 0; i < n; i++) {
-        scanf("%d", &A[i]);
-    }
-}
-
-void DisplayArray(int A[], int n){
-    int i;
-    for(i = 0; i < n; i++) {
-        printf("%d ", A[i]);
-    }
-    printf("\n");
-}
-
-void Swap(int *a, int *b){
-    int temp = *a;
+// Function to swap two numbers
+void swap(int *a, int *b)
+{
+    int temp;
+    temp = *a;
     *a = *b;
     *b = temp;
 }
 
-void QuickSort(int A[], int low, int high){
-    int pivotIndex;
-    
-    if(low < high){
-        pivotIndex = Partition(A, low, high);
-        
-        QuickSort(A, low, pivotIndex - 1);
-        QuickSort(A, pivotIndex + 1, high);
+// Partition function
+int partition(int arr[], int low, int high)
+{
+    int pivot = arr[high];   // choose last element as pivot
+    int i = low - 1;
+    int j;
+
+    for(j = low; j < high; j++)
+    {
+        if(arr[j] <= pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+
+    swap(&arr[i + 1], &arr[high]);
+    return i + 1;
+}
+
+// Quick Sort Function (Subprogram)
+void quickSort(int arr[], int low, int high)
+{
+    if(low < high)
+    {
+        int pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);   // left side
+        quickSort(arr, pi + 1, high);  // right side
     }
 }
 
-int Partition(int A[], int low, int high){
-    int pivot = A[low];
-    int i = low;
-    int j = high;
+// Main function
+int main()
+{
+    int arr[50], n, i;
 
-    while(i < j) {
-        while(A[i] <= pivot && i <= high - 1) {
-            i++;
-        }
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
 
-        while(A[j] > pivot && j >= low + 1) {
-            j--;
-        }
+    printf("Enter elements:\n");
+    for(i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
 
-        if(i < j) {
-            Swap(&A[i], &A[j]);
-        }
-    }
-    Swap(&A[low], &A[j]);
-    return j;
+    quickSort(arr, 0, n - 1);
+
+    printf("Sorted array:\n");
+    for(i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+
+    return 0;
 }
