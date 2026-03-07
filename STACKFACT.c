@@ -37,74 +37,27 @@ int pop()
         return x;
     }
 }
-void display()
-{
-    if(s.top==0)
-    {
-        printf("stack is empty\n");
-        return;
-    }
-    int i;
-    for(i=s.top;i>=0;i--)
-    {
-        printf("%d ",s.fact[i]);
-    }
-    printf("\n");
-}
-
 int main()
 {
-    initStack();
-
-    int n, num;
-
-    printf("How many numbers you want to push? ");
-    scanf("%d", &n);
-
-    for(int i = 1; i <= n; i++)
-    {
-        printf("Enter number %d: ", i);
-        scanf("%d", &num);
-        push(num);
-    }
-
-    display();
-
-  
-    int k;
-    printf("How many numbers you want to pop? ");
-    scanf("%d", &k);
-
-    for(int i = 1; i <= k; i++)
-    {
-        if(s.top == 0)
-        {
-            printf("Stack became empty\n");
-            break;
-        }
-        printf("Popped: %d\n", pop());
-    }
-
-    display();
     /* -------- Factorial using your algorithm -------- */
 
     int N, x;
     long long fact;
-    int j;   // use different variable
+    int i;   // use different variable
 
     printf("Enter N for factorial: ");
     scanf("%d", &N);
 
     initStack();   // clear stack
 
-    j = 1;
+    i = 1;
     push(1);
 
-    while(j <= N)
+    while(i <= N)
     {
         x = pop();
-        push(x * j);
-        j = j + 1;
+        push(x * i);
+        i = i + 1;
     }
 
     fact = pop();
