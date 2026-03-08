@@ -1,3 +1,8 @@
+/*EVALATION OF A GIVEN POSTFIX EXPRESSION
+    DATE:02/03/2026
+    NAME:SURESH
+    FILENAME:POSTFIX.c
+    */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
